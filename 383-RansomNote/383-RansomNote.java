@@ -1,20 +1,20 @@
-// Last updated: 1/13/2026, 4:12:10 PM
+// Last updated: 1/13/2026, 6:29:58 PM
 1class Solution {
-2    public boolean canConstruct(String ransomNote, String magazine) {
-3        if (magazine.length() < ransomNote.length()) return false;
-4        else {
-5            Map <Character, Integer> s1 = new HashMap<>();
-6            Map <Character, Integer> s2 = new HashMap<>();
-7            for (char x : ransomNote.toCharArray()) {
-8                s1.put (x, s1.getOrDefault(x, 0) + 1);
-9            }
-10             for (char x : magazine.toCharArray()) {
-11                s2.put (x, s2.getOrDefault(x, 0) + 1);
-12            }
-13            for (char x : s1.keySet()) {
-14                if(s1.get(x) > s2.getOrDefault(x, 0)) return false;
-15            }
-16            return true;
-17        }
+2    public List<List<String>> groupAnagrams(String[] strs) {
+3        Map <String, List<String>> m = new HashMap<>();
+4        for (String s : strs) {
+5            String temp = sorted(s);
+6            m.putIfAbsent(temp, new ArrayList<>());
+7            m.get(temp).add(s);
+8        }
+9        return new ArrayList<>(m.values());
+10
+11    }
+12
+13    public String sorted (String s) {
+14        char[] arr = s.toCharArray();
+15        Arrays.sort(arr);
+16        String s1 = new String (arr);
+17        return s1;
 18    }
 19}
