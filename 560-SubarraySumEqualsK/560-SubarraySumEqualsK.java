@@ -1,19 +1,18 @@
-// Last updated: 3/21/2026, 9:37:58 PM
+// Last updated: 3/23/2026, 12:37:01 PM
 1class Solution {
 2    public int subarraySum(int[] nums, int k) {
-3        int n = nums.length;
-4        int count = 0;
-5
-6        for (int i = 0; i < n; i++) {
-7            int sum = 0;
-8            for (int j = i; j < n; j++) {
-9                sum += nums[j];
-10                if (sum == k) {
-11                    count++;
-12                }
-13            }
-14        }
-15
-16        return count;
-17    }
-18}
+3        Map<Integer, Integer> count = new HashMap<>();
+4        int sum = 0;
+5        int res = 0;
+6
+7        count.put(0, 1);
+8
+9        for (int i = 0; i < nums.length; i++) {
+10            sum += nums[i];
+11            res += count.getOrDefault(sum - k, 0);
+12            count.put(sum, count.getOrDefault(sum, 0) + 1);
+13        }
+14
+15        return res;
+16    }
+17}
