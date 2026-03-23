@@ -1,4 +1,4 @@
-// Last updated: 3/22/2026, 5:06:09 PM
+// Last updated: 3/23/2026, 12:35:34 PM
 1class Solution {
 2    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
 3        List<List<Integer>> res = new ArrayList<>();
@@ -7,8 +7,8 @@
 6        return res;
 7    }
 8
-9    private void backtrack(int[] candidates, int remain, int start, List<Integer> path, List<List<Integer>> res) {
-10        if (remain == 0) {
+9    public void backtrack(int[] candidates, int target, int start, List<Integer> path, List<List<Integer>> res) {
+10        if (target == 0) {
 11            res.add(new ArrayList<>(path));
 12            return;
 13        }
@@ -18,12 +18,12 @@
 17                continue;
 18            }
 19
-20            if (candidates[i] > remain) {
+20            if (candidates[i] > target) {
 21                break;
 22            }
 23
 24            path.add(candidates[i]);
-25            backtrack(candidates, remain - candidates[i], i + 1, path, res);
+25            backtrack(candidates, target - candidates[i], i + 1, path, res);
 26            path.remove(path.size() - 1);
 27        }
 28    }
