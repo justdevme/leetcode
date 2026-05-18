@@ -1,41 +1,27 @@
-// Last updated: 5/18/2026, 10:55:41 AM
+// Last updated: 5/18/2026, 11:09:35 AM
 1class Solution {
 2    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-3        Queue<int[]> queue = new LinkedList<>();
-4        boolean[][] visited = new boolean[image.length][image[0].length];
+3       
+4        Queue<int[]> queue = new LinkedList<>();
 5        queue.add(new int[]{sr, sc});
-6        visited[sr][sc] = true;
-7        int originalColor = image[sr][sc];
+6        int originalColor = image[sr][sc];
+7        if (originalColor == color) return image;
 8        image[sr][sc] = color;
-9        while(!queue.isEmpty()){
-10            int[] node = queue.poll();
-11            int row = node[0];
-12            int col = node[1];
-13            if (row > 0 && !visited[row - 1][col] && image[row - 1][col] == originalColor) {
-14                image[row - 1][col] = color;
-15                int[] tmp = {row - 1, col};
-16                visited[row - 1][col] = true;
-17                queue.add(tmp);
-18            }
-19            if (row < image.length - 1 && !visited[row + 1][col] && image[row + 1][col] == originalColor) {
-20                image[row + 1][col] = color;
-21                int[] tmp = {row + 1, col};
-22                visited[row + 1][col] = true;
-23                queue.add(tmp);
-24            }
-25            if (col > 0 && !visited[row][col - 1] &&image[row][col - 1] == originalColor) {
-26                image[row][col - 1] = color;
-27                int[] tmp = {row, col - 1};
-28                visited[row][col - 1] = true;
-29                queue.add(tmp);
-30            }
-31            if (col < image[0].length - 1 && !visited[row][col + 1] && image[row][col + 1] == originalColor) {
-32                image[row][col + 1] = color;
-33                int[] tmp = {row, col + 1};
-34                visited[row][col + 1] = true;
-35                queue.add(tmp);
-36            }
-37        }
-38        return image;
-39    }
-40}
+9        int[][] dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+10        while (!queue.isEmpty()){
+11            int[] node = queue.poll();
+12            int row = node[0];
+13            int col = node[1];
+14            for (int[] dir : dirs) {
+15
+16                int newRow = row + dir[0];
+17                int newCol = col + dir[1];
+18                if (newRow >= 0 && newRow < image.length && newCol >= 0 && newCol < image[0].length && image[newRow][newCol] == originalColor) {
+19                    image[newRow][newCol] = color;
+20                    queue.add(new int[]{newRow, newCol});
+21                }
+22            }
+23        }
+24        return image;
+25    }
+26}
